@@ -27,6 +27,7 @@ build_packages:
    --plugin-option=tmpfs:keep_mounted=True
    --plugin-option=tmpfs:max_fs_size=32g
    --plugin-option=tmpfs:required_ram_mb=39800
+   -D 'dist .el7.nutanix'
    --verbose"
  update_packages_repos_before_build: True
 build_release_notes:
