@@ -16,6 +16,7 @@ common:
  updater_email:
 build_packages:
  packages:
+  - "open-power-host-os"
  keep_build_dir: False
  force_rebuild: False
  mock_config:
@@ -50,16 +51,10 @@ build_iso:
     packages_dir: "result/packages/latest"
     automated_install_file: "host-os.ks"
     installable_environments:
-        OpenPOWER Host OS all:
-            - "open-power-host-os-all"
         OpenPOWER Host OS base:
             - "open-power-host-os-base"
-        OpenPOWER Host OS container:
-            - "open-power-host-os-container"
         OpenPOWER Host OS virtualization:
             - "open-power-host-os-virt"
-        OpenPOWER Host OS virtualization management:
-            - "open-power-host-os-virt-management"
         OpenPOWER Host OS RAS:
             - "open-power-host-os-ras"
     base_distro_minimal_install_groups:
