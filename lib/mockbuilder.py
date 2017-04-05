@@ -45,6 +45,8 @@ class Mock(package_builder.PackageBuilder):
         super(Mock, self).__init__()
         binary_file = CONF.get('common').get('mock_binary')
         extra_args = CONF.get('build_packages').get('mock_args') or ""
+        extra_args += (" -D 'buildid .%(nutanix_version)s'" %
+                       CONF.get('common'))
         self.build_dir = None
         self.build_results_dir = CONF.get('build_packages').get('result_dir')
         self.archive = None

@@ -2,6 +2,7 @@ import logging
 import os
 
 from lxml import etree
+from string import Template
 
 from lib import exception
 from lib import packages_manager
@@ -22,9 +23,15 @@ def setup_versions_repository(config):
                         REPOSITORIES_DIR)
     url = config.get('common').get('packages_metadata_repo_url')
     branch = config.get('common').get('packages_metadata_repo_branch')
+    tmpl = Template(config.get('common').get('nutanix_version'))
     try:
         versions_repo = repository.get_git_repository(url, path)
         versions_repo.checkout(branch)
+        num_commits = len(list(versions_repo.iter_commits(
+            "%s..%s" % (config.get('common').get('nutanix_version_base_commit'),
+                        "HEAD"))))
+        config.get('common')['nutanix_version'] = tmpl.substitute(
+            num_commits=num_commits)
     except exception.RepositoryError:
         LOG.error("Failed to checkout versions repository")
         raise
