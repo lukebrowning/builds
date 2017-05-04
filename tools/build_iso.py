@@ -14,8 +14,10 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 from lib import iso_builder
+from lib.versions_repository import setup_versions_repository
 
 
 def run(CONF):
+    setup_versions_repository(CONF) # To figure out nutanix_version
     builder = iso_builder.MockPungiIsoBuilder(CONF)
     builder.build()

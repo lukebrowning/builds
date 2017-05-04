@@ -36,7 +36,7 @@ class MockPungiIsoBuilder(object):
         self.result_dir = os.path.join(self.common_config.get('result_dir'),
             'iso', self.timestamp)
         self.distro = self.config.get("iso_name")
-        self.version = datetime.date.today().strftime("%y%m%d")
+        self.version = self.common_config.get("nutanix_version")
         (_, _, self.arch) = distro_utils.detect_distribution()
         self.mock_binary = self.common_config.get('mock_binary')
         self.mock_args = self.config.get('mock_args') or ""

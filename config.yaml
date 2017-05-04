@@ -18,7 +18,7 @@ common:
  updater_email:
 build_packages:
  packages:
-  - "open-power-host-os"
+  - "nutanix-ahv"
  keep_build_dir: False
  force_rebuild: False
  mock_config:
@@ -39,7 +39,7 @@ build_release_notes:
  push_repo_url:
  push_repo_branch: "master"
 build_iso:
-    iso_name: "OpenPOWER-Host_OS"
+    iso_name: "Nutanix-AHV"
     mock_config:
      CentOS:
       '7': "./mock_configs/CentOS/7/build-iso-CentOS-7-ppc64le.cfg"
@@ -53,23 +53,15 @@ build_iso:
     packages_dir: "result/packages/latest"
     automated_install_file: "host-os.ks"
     installable_environments:
-        OpenPOWER Host OS base:
-            - "open-power-host-os-base"
-        OpenPOWER Host OS virtualization:
-            - "open-power-host-os-virt"
-        OpenPOWER Host OS RAS:
-            - "open-power-host-os-ras"
+        Nutanix AHV:
+            - "nutanix-ahv-release"
     base_distro_minimal_install_groups:
         - "core"
     iso_root_fs_packages_groups:
         - "base"
         - "core"
         - "debugging"
-        - "virtualization-hypervisor"
-        - "virtualization-tools"
-        - "network-file-system-client"
-        - "remote-system-management"
-        - "virtualization-platform"
+        - "nutanix-ahv-group"
     iso_root_fs_packages:
         - "grub2"
     mock_iso_repo_name: "host_os"
