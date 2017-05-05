@@ -156,12 +156,12 @@ class Mock(package_builder.PackageBuilder):
 
     def _install_external_dependencies(self, package):
         if package.build_dependencies:
-            cmd = self.common_mock_args
-            install = " --install"
+            cmd = [ self.common_mock_args, "--install" ]
             for dep in package.build_dependencies:
-                install = " ".join([install, " ".join(dep.cached_build_results)])
-
-            cmd = cmd + install
+                # Never install debuginfo.
+                cmd.extend(filter(lambda pkg: "debuginfo" not in pkg,
+                                  dep.cached_build_results))
+            cmd = " ".join(cmd)
             LOG.info("%s: Installing dependencies on chroot" % package.name)
             utils.run_command(cmd)
 
