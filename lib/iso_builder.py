@@ -116,11 +116,15 @@ class MockPungiIsoBuilder(object):
 
         with open(kickstart_path, "wt") as f:
             repo_urls = self.config.get('distro_repos_urls')
+            distro_repo_args = " ".join(self.config.get('distro_repo_args'))
             mock_iso_repo_name = self.config.get('mock_iso_repo_name')
             mock_iso_repo_dir = self.config.get('mock_iso_repo_dir')
             repo_urls[mock_iso_repo_name] = "file://%s/" % mock_iso_repo_dir
             for name, url in repo_urls.items():
-                repo = ("repo --name=%s --baseurl=%s\n" % (name, url))
+                args = ""
+                if name != mock_iso_repo_name:
+                    args = distro_repo_args
+                repo = ("repo --name=%s --baseurl=%s %s\n" % (name, url, args))
                 f.write(repo)
 
             f.write("%packages\n")
