@@ -67,9 +67,9 @@ build_iso:
     mock_iso_repo_name: "host_os"
     mock_iso_repo_dir: "/host-os-repo"
     distro_repos_urls:
-        base: "http://mirror.centos.org/altarch/7/os/ppc64le/"
-        updates: "http://mirror.centos.org/altarch/7/updates/ppc64le/"
-        extras: "http://mirror.centos.org/altarch/7/extras/ppc64le/"
+        base: "http://mirror.centos.org/altarch/7.3.1611/os/ppc64le/"
+        updates: "http://mirror.centos.org/altarch/7.3.1611/updates/ppc64le/"
+        extras: "http://mirror.centos.org/altarch/7.3.1611/extras/ppc64le/"
         epel: "http://download.fedoraproject.org/pub/epel/7/ppc64le/"
     distro_repo_args:
         - "--excludepkgs=kernel*,qemu*,libvirt,libvirt-client,libvirt-daemon*,SLOF,nmap-ncat"
