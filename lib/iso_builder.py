@@ -66,7 +66,8 @@ class MockPungiIsoBuilder(object):
         LOG.info("Initializing a chroot")
         self._run_mock_command("--init")
 
-        package_list = ["createrepo", "pungi"]
+        package_list = [
+	    "yum-plugin-priorities", "yum-utils", "createrepo", "pungi"]
         LOG.info("Installing %s inside the chroot" % " ".join(package_list))
         self._run_mock_command("--install %s" % " ".join(package_list))
 
@@ -148,7 +149,18 @@ class MockPungiIsoBuilder(object):
 
     def _build(self):
         LOG.info("Building ISO")
-        build_cmd = ("pungi -c %s --nosource --nodebuginfo --name %s --ver %s" %
+        build_cmd = ("pungi -c %s --nosource --nodebuginfo --name %s --ver %s -G -C" %
+                    (self.config.get('automated_install_file'),
+                     self.distro, self.version))
+        self._run_mock_command("--shell '%s'" % build_cmd)
+
+	# pylorax opens/creates installroot/proc/modules across the call to dracut
+	# to minimize warnings in the latter, but installroot/proc doesn't exist so
+	# it fails.  Interestingly, dracut only produces one warning anyway.
+        self._run_mock_command(
+		"--shell 'sed -i s?proc/modules?proc-modules? /usr/lib/python2.7/site-packages/pylorax/treebuilder.py'");
+
+        build_cmd = ("pungi -c %s --nosource --nodebuginfo --name %s --ver %s -B -I" %
                     (self.config.get('automated_install_file'),
                      self.distro, self.version))
         self._run_mock_command("--shell '%s'" % build_cmd)

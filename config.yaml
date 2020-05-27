@@ -3,7 +3,7 @@ common:
  result_dir: 'result'
  verbose: False
  log_size: 2097152
- packages_metadata_repo_url: "https://github.com/NXPower/versions.git"
+ packages_metadata_repo_url: "/home/nutanix/devel/versions"
  packages_metadata_repo_branch: '2.0-nutanix'
  nutanix_version_base_commit: '2.0-2017-03-31'
  nutanix_version: '20170331.${num_commits}'
@@ -63,13 +63,18 @@ build_iso:
         - "debugging"
         - "nutanix-ahv-group"
     iso_root_fs_packages:
+        - "anaconda"
+        - "anaconda-dracut"
+        # packages needed by anaconda
+        - "redhat-upgrade-dracut"
         - "grub2"
+        - "yum-langpacks"
     mock_iso_repo_name: "host_os"
     mock_iso_repo_dir: "/host-os-repo"
     distro_repos_urls:
-        base: "http://vault.centos.org/altarch/7.3.1611/os/ppc64le/"
-        updates: "http://vault.centos.org/altarch/7.3.1611/updates/ppc64le/"
-        extras: "http://vault.centos.org/altarch/7.3.1611/extras/ppc64le/"
+        base: "http://vault.centos.org/altarch/7.7.1908/os/ppc64le/"
+        updates: "http://vault.centos.org/altarch/7.7.1908/updates/ppc64le/"
+        extras: "http://vault.centos.org/altarch/7.7.1908/extras/ppc64le/"
         epel: "http://download.fedoraproject.org/pub/epel/7/ppc64le/"
     distro_repo_args:
         - "--excludepkgs=kernel*,qemu*,libvirt,libvirt-client,libvirt-daemon*,SLOF,nmap-ncat"
