@@ -159,6 +159,13 @@ class MockPungiIsoBuilder(object):
 	# it fails.  Interestingly, dracut only produces one warning anyway.
         self._run_mock_command(
 		"--shell 'sed -i s?proc/modules?proc-modules? /usr/lib/python2.7/site-packages/pylorax/treebuilder.py'");
+	
+	# Increase the size of the temporary loop device used to build the live rootfs image
+        self._run_mock_command(
+                "--shell 'sed -i s?size=2\):?size=4\):? /usr/lib/python2.7/site-packages/pylorax/treebuilder.py'");
+	
+        # TODO: This almost works, but the remembered word pattern \1\2 resolves to ^A^B instead of the matched pattern
+        #'--shell "sed -i -r \'s/(def[ \t]+create_runtime\()+(.*)+size=2\):/\1\2size=4\):/\' /usr/lib/python2.7/site-packages/pylorax/treebuilder.py"');
 
         build_cmd = ("pungi -c %s --nosource --nodebuginfo --name %s --ver %s -B -I" %
                     (self.config.get('automated_install_file'),
