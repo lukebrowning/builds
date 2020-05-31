@@ -77,7 +77,7 @@ build_iso:
         extras: "http://vault.centos.org/altarch/7.7.1908/extras/ppc64le/"
         epel: "http://download.fedoraproject.org/pub/epel/7/ppc64le/"
     distro_repo_args:
-        - "--excludepkgs=kernel*,qemu*,libvirt,libvirt-client,libvirt-daemon*,SLOF,nmap-ncat"
+        - "--excludepkgs=kernel*,qemu*,libvirt,libvirt-client,libvirt-daemon*,nmap-ncat"
 update_metapackage:
  push_repo_url:
  push_repo_branch: "master"
